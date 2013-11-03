@@ -1,0 +1,7 @@
+{% set mesos = salt['grains.filter_by']({
+    'default': {
+        'pkg': 'mesos',
+        'service': {'master': 'mesos-master', 'slave': 'mesos-slave'},
+        'conf': '/etc/mesos/master.conf',
+    },
+}, merge=salt['pillar.get']('mesos:lookup')) %}

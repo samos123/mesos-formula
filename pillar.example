@@ -1,0 +1,7 @@
+# java_home: /usr/lib/java
+
+mesos:
+  version: mesosphere-0.20.1 # ['apache-0.20.1', 'mesosphere-0.20.1'] (only mesosphere currently supported)
+  masters_target: "G@roles:mesos_master" # You could also use groups:mesos-masters or any saltstack targeting mechanism
+  slaves_target: "G@roles:mesos_slave"
+  targeting_method: "compound"

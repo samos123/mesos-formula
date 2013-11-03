@@ -1,0 +1,1 @@
+zk://{% for server in servers %}{{ server }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos
