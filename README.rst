@@ -2,8 +2,7 @@
 Mesos formula
 ================
 
-A saltstack formula that is empty. It has dummy content to help with a quick
-start on a new formula.
+Installs mesos on ubuntu from the mesosphere repo
 
 .. note::
 
@@ -16,20 +15,18 @@ Available states
 .. contents::
     :local:
 
-``template``
-------------
+``mesos``
+========
+Installs nodes as mesos-master and mesos-slave based on pillar config masters_target and slaves_target.
+The default targeting is to install mesos-master to all nodes with the role mesos_master and to
+install mesos-slave to all nodes with the role mesos_slave. This is configurable through pillar.
 
-Installs the template package, and starts the associated template service.
-
-Things to think about:
-- Auto detect master node ip (Make sure master node is reachable from slaves), do this via hostsfile
-- Support for mesosphere, apache mesos and possibly other vendors
-- Make sure OpenJDK java package or oracle is installed, list dependency to sun-java
-- Mesos frameworks integration, use subfolders for each framework or different git repo
 
 
 Dependencies
 ============
+You have to first install and apply the following dependencies:
+
 - sun-java-formula
 - hostsfile-formula
 
@@ -37,6 +34,9 @@ Dependencies
 Setup
 =====
 
-- Download all dependencies
-- Enable publish.publish/Peer communication on the master
-
+- Download all dependencies listed above
+- Enable publish.publish/Peer communication on the master /etc/salt/master.d/peer.conf:
+::
+    peer:
+      .*:
+        - network.interfaces
