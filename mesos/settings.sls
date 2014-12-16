@@ -11,9 +11,9 @@
 {% set zookeeper_target = p.get('zookeeper_target', g.get('zookeeper_target', 'G@roles:mesos_master')) %}
 {% set targeting_method = p.get('targeting_method', g.get('targeting_method', 'compound')) %}
 
-{% set master_nodes = salt['publish.publish'](masters_target, 'network.interfaces', expr_form=targeting_method).keys() %}
-{% set mesos_slaves = salt['publish.publish'](slaves_target, 'network.interfaces', expr_form=targeting_method).keys() %}
-{% set zookeeper_servers = salt['publish.publish'](zookeeper_target, 'network.interfaces', expr_form=targeting_method).keys() %}
+{% set master_nodes = salt['mine.get'](masters_target, 'network.interfaces', expr_form=targeting_method) %}
+{% set mesos_slaves = salt['mine.get'](slaves_target, 'network.interfaces', expr_form=targeting_method) %}
+{% set zookeeper_servers = salt['publish.publish'](zookeeper_target, 'network.interfaces', expr_form=targeting_method) %}
 
 {% set zookeeper_id = p.get('zookeeper_id', g.get('zookeeper_id', '1')) %}
 
