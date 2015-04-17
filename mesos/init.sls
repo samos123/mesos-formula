@@ -23,11 +23,8 @@ mesos_repo:
 
 {% if salt['match.' ~ mesos_settings.targeting_method](mesos_settings.masters_target) %}
 /etc/zookeeper/conf/myid:
-  file.blockreplace:
-    - content: '{{ mesos_settings.zookeeper_id|string }}'
-    - marker_start: "# START auto-management of zookeeper id -DO-NOT-EDIT-"
-    - marker_end: "# END --"
-    - append_if_not_found: True
+  file.managed:
+    - contents: '{{ mesos_settings.zookeeper_id|string }}'
 
 /etc/zookeeper/conf/zoo.cfg:
   file.managed:

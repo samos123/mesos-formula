@@ -9,19 +9,14 @@
 
 
 extract_spark_and_install_locally:
-  cmd.run:
-      - name: curl {{ spark_settings.curl_opts }} '{{ spark_settings.download_src }}' -o /tmp/spark-binary.tar.gz
-      - creates: /opt/{{ spark_settings.version }}
-      - require_in:
-        - archive: extract_spark_and_install_locally
   archive:
     - extracted
     - name: /opt/
-    - source: /tmp/spark-binary.tar.gz
+    - source: {{ spark_settings.download_src }}
     - archive_format: tar
-    - source_hash: md5=1aa72cf067d3e437b9d4e035b9c201d4
+    - source_hash: md5={{ spark_settings.download_md5 }}
     - tar_options: xz
-    - if_missing: /opt/{{ spark_settings.version }}
+    - if_missing: /opt/spark*
   file.managed:
     - name: /etc/profile.d/spark.sh
     - contents: "export PATH=/opt/{{ spark_settings.version }}/bin:$PATH"
